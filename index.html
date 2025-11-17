@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCSS Pullers - Official Tractor Pull Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚜</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Condensed:wght@400;700&display=swap');
+
+        :root {
+            /* Light Theme */
+            --primary: #8B1A1A;
+            --secondary: #333333;
+            --accent: #FF8C00;
+            --text: #2C2C2C;
+            --bg: #F0F0F0;
+            --card-bg: #FFFFFF;
+            --header-bg: #1A1A1A;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --mud: #5C4033;
+            --dirt: #8B4513;
+            --rust: #B7410E;
+            --steel: #71797E;
+        }
+        .dark-mode {
+            --primary: #FF4D4D;
+            --secondary: #CCCCCC;
+            --accent: #FFA500;
+            --text: #F0F0F0;
+            --bg: #121212;
+            --card-bg: #1E1E1E;
+            --header-bg: #0A0A0A;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --mud: #8B5A2B;
+            --dirt: #795548;
+            --rust: #8B4513;
+            --steel: #546E7A;
+            --chrome: #FFFFFF;
+            --text-inverse: #2C2C2C;
+            --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Ensure all text elements inherit the correct color in dark mode */
+        .dark-mode p,
+        .dark-mode h1,
+        .dark-mode h2,
+        .dark-mode h3,
+        .dark-mode h4,
+        .dark-mode h5,
+        .dark-mode h6,
+        .dark-mode span,
+        .dark-mode div,
+        .dark-mode li,
+        .dark-mode td,
+        .dark-mode th,
+        .dark-mode .section-title,
+        .dark-mode .about-text,
+        .dark-mode .team-member,
+        .dark-mode .activity-item,
+        .dark-mode .motto {
+            color: var(--text) !important;
+        }
+
+        /* Favicon animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .favicon-animate {
+            animation: bounce 2s infinite;
+            display: inline-block;
+        }
+
+        * {
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Roboto Condensed', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--rust);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            padding: 5px;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .logo i {
+            color: var(--secondary);
+            animation: spin 10s linear infinite;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            position: relative;
+            padding: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--rust);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background-color: var(--card-bg);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent);
+            color: var(--bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero {
+            padding: 180px 0;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1579972668140-f7da38e027d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 8px solid var(--rust);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0.7) 100%
+            );
+        }
+
+        .dark-mode .hero:before {
+            background: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.8) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 3px 3px 0 var(--rust), 6px 6px 0 rgba(0,0,0,0.3);
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--chrome);
+            margin-top: 0;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .tractor-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--accent), #FF6B00);
+            color: #000;
+            text-decoration: none;
+            border-radius: 0;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.4s both;
+            border: 3px solid #000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background-color: #FFC400;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--rust);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-image i {
+            font-size: 10rem;
+            color: var(--primary);
+            opacity: 0.8;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-member {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            border: 2px solid var(--rust);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow);
+        }
+
+        .member-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background-color: var(--bg);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 2px solid var(--rust);
+        }
+
+        .member-name {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .activities {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 2px solid var(--rust);
+            position: relative;
+        }
+
+        .activities:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--primary);
+        }
+
+        .activity-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: var(--bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--rust);
+            transition: var(--transition);
+        }
+
+        .activity-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .activity-item i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            height: 200px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--rust);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .gallery-item i {
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.7;
+        }
+
+        .motto {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin: 40px 0;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow);
+            position: relative;
+            border: 2px solid var(--rust);
+            font-weight: 700;
+        }
+
+        .motto:before, .motto:after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .motto:before {
+            top: 10px;
+            left: 20px;
+        }
+
+        .motto:after {
+            bottom: 10px;
+            right: 20px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 25px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            border: 2px solid var(--rust);
+        }
+
+        .contact-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px var(--shadow);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .contact-link:hover i {
+            color: var(--accent);
+        }
+
+        .contact-link i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .extras-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            border: 2px solid var(--rust);
+        }
+
+        .extras-table th, .extras-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg);
+        }
+
+        .extras-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .extras-table tr:last-child td {
+            border-bottom: none;
+        }
+        .extras-table tr:hover {
+            background-color: var(--bg);
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            padding: 50px 0 30px;
+            text-align: center;
+            color: var(--text);
+            margin-top: 80px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .dark-mode footer {
+            background-color: var(--header-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-content p {
+            margin: 0 0 15px;
+            font-size: 0.95rem;
+            color: var(--text);
+            opacity: 0.9;
+        }
+        
+        .footer-content p:last-child {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .tractor-animation {
+            position: absolute;
+            bottom: 10px;
+            left: -100px;
+            font-size: 2rem;
+            color: var(--steel);
+            animation: tractorMove 15s linear infinite;
+        }
+
+        @keyframes tractorMove {
+            0% { left: -100px; }
+            100% { left: 100%; }
+        }
+
+        /* Interactive elements */
+        .interactive-tractor {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: var(--primary);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .mud-splash {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--mud) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="mud-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000;"></div>
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo" id="tractor-logo">
+                    <span class="favicon-animate" style="font-size: 1.5em;">🚜</span>
+                    <i class="fas fa-tractor"></i>
+                    <span>PCSS PULLERS</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#team">Team</a>
+                    <a href="#activities">Activities</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="tractor-track">
+            <div class="tractor-animation">
+                <i class="fas fa-tractor"></i>
+            </div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="tractor-icon">
+                    <i class="fas fa-tractor"></i>
+                </div>
+                <h1>PCSS PULLERS</h1>
+                <p>We're a rugged team of builders, coders, and creators who love making powerful projects together.</p>
+                <a href="#about" class="btn">Explore Our Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hey there! We're <strong>PCSS Pullers</strong> — a student club that loves combining creativity and tech with raw power.</p>
+                    <p>We build things, solve problems, and make every project tough and resilient (and sometimes a little chaotic 😅).</p>
+                    <p>Our goal is to <strong>pull</strong> together powerful ideas and make them happen — just like tractors pulling heavy loads with raw power and determination.</p>
+                </div>
+                <div class="about-image">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team">
+        <div class="container">
+            <h2 class="section-title">Meet the Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="member-name">Catherine</h3>
+                    <p>Catherine is full of powerful ideas and always adds something creative to every project. She's the kind of person who makes even the hardest task feel achievable.</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="member-name">Inaaya</h3>
+                    <p>Inaaya keeps everything running smoothly. She's all about design, organization, and making our work look powerful and amazing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="activities">
+        <div class="container">
+            <h2 class="section-title">What We Do</h2>
+            <div class="activities">
+                <p>"Teamwork makes the dream work — especially when we add power and determination." 🚜</p>
+                <p>We work on powerful tech projects, coding challenges, and rugged builds. Our club isn't just about robots or code — it's about creating, learning, and helping each other improve with strength and resilience.</p>
+                
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Building powerful games and programs</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Designing rugged graphics or presentations</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>Helping each other learn something new</span>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Competing in school events with power</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <h2 class="section-title">A Peek Into Our World</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="gallery-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Our Motto</h2>
+            <div class="motto">
+                "Pull together. Build together. Win together."
+            </div>
+            <p style="text-align: center;">That's what PCSS Pullers is all about — power, teamwork, and a little bit of rugged chaos (the good kind).</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Connect With Us</h2>
+            <div class="contact-links">
+                <a href="https://github.com" class="contact-link">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.markdownguide.org/" class="contact-link">
+                    <i class="fas fa-book"></i>
+                    <span>Markdown Guide</span>
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="fas fa-school"></i>
+                    <span>Find Us After School</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2 class="section-title">Fun Extras</h2>
+            <table class="extras-table">
+                <thead>
+                    <tr>
+                        <th>Favorite Thing</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Music</td>
+                        <td>Keeps us going while we code with power 🎧</td>
+                    </tr>
+                    <tr>
+                        <td>Snacks</td>
+                        <td>The fuel behind every powerful project 🍫</td>
+                    </tr>
+                    <tr>
+                        <td>Laughter</td>
+                        <td>Mandatory for every meeting 😆</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p><strong>Made with 💖 by the PCSS Pullers</strong></p>
+                <p>© 2025 — Creative minds. Real teamwork. No boring stuff.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="interactive-tractor" id="interactiveTractor">
+        <i class="fas fa-tractor"></i>
+    </div>
+
+    <script>
+        // Tractor logo animation
+        const tractorLogo = document.getElementById('tractor-logo');
+        const mudContainer = document.getElementById('mud-container');
+        
+        // Tractor animation on hover
+        tractorLogo.addEventListener('mouseenter', () => {
+            tractorLogo.style.transform = 'scale(1.1) rotate(-5deg)';
+            tractorLogo.style.transition = 'transform 0.3s ease-in-out';
+        });
+        
+        tractorLogo.addEventListener('mouseleave', () => {
+            tractorLogo.style.transform = 'scale(1) rotate(0)';
+        });
+        
+        // Mud splash effect
+        function createMudSplash(x, y) {
+            const mud = document.createElement('div');
+            mud.style.position = 'absolute';
+            mud.style.left = `${x}px`;
+            mud.style.top = `${y}px`;
+            mud.style.width = '20px';
+            mud.style.height = '20px';
+            mud.style.background = 'radial-gradient(circle, var(--mud) 0%, var(--dirt) 100%)';
+            mud.style.borderRadius = '50%';
+            mud.style.pointerEvents = 'none';
+            mud.style.transform = 'scale(0)';
+            mud.style.animation = 'splash 1s forwards';
+            mudContainer.appendChild(mud);
+            
+            // Remove mud after animation
+            setTimeout(() => {
+                mud.style.opacity = '0';
+                mud.style.transition = 'opacity 1s';
+                setTimeout(() => mud.remove(), 1000);
+            }, 1000);
+        }
+        
+        // Add mud splash effect on click
+        document.addEventListener('click', (e) => {
+            if (Math.random() > 0.8) { // 20% chance to create mud splash
+                createMudSplash(e.clientX, e.clientY);
+            }
+        });
+        
+        // Add keyframes for mud splash
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes splash {
+                0% { transform: scale(0); opacity: 1; }
+                50% { transform: scale(2); opacity: 0.8; }
+                100% { transform: scale(3); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Initialize with dark mode and sun icon
+        document.body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.team-member, .activity-item, .gallery-item, .motto').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Interactive tractor functionality
+        const interactiveTractor = document.getElementById('interactiveTractor');
+        let tractorX = window.innerWidth - 100;
+        let tractorY = window.innerHeight - 100;
+        
+        interactiveTractor.style.left = tractorX + 'px';
+        interactiveTractor.style.top = tractorY + 'px';
+        
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        interactiveTractor.addEventListener('mousedown', startDrag);
+        interactiveTractor.addEventListener('touchstart', startDrag);
+        
+        function startDrag(e) {
+            isDragging = true;
+            
+            if (e.type === 'mousedown') {
+                offsetX = e.clientX - interactiveTractor.getBoundingClientRect().left;
+                offsetY = e.clientY - interactiveTractor.getBoundingClientRect().top;
+                document.addEventListener('mousemove', drag);
+                document.addEventListener('mouseup', stopDrag);
+            } else {
+                const touch = e.touches[0];
+                offsetX = touch.clientX - interactiveTractor.getBoundingClientRect().left;
+                offsetY = touch.clientY - interactiveTractor.getBoundingClientRect().top;
+                document.addEventListener('touchmove', drag);
+                document.addEventListener('touchend', stopDrag);
+            }
+            
+            e.preventDefault();
+        }
+        
+        function drag(e) {
+            if (!isDragging) return;
+            
+            let clientX, clientY;
+            
+            if (e.type === 'mousemove') {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            } else {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+            
+            tractorX = clientX - offsetX;
+            tractorY = clientY - offsetY;
+            
+            // Keep within viewport
+            tractorX = Math.max(0, Math.min(tractorX, window.innerWidth - interactiveTractor.offsetWidth));
+            tractorY = Math.max(0, Math.min(tractorY, window.innerHeight - interactiveTractor.offsetHeight));
+            
+            interactiveTractor.style.left = tractorX + 'px';
+            interactiveTractor.style.top = tractorY + 'px';
+            
+            // Create mud splash effect
+            createMudSplash(tractorX + interactiveTractor.offsetWidth/2, tractorY + interactiveTractor.offsetHeight);
+        }
+        
+        function stopDrag() {
+            isDragging = false;
+            document.removeEventListener('mousemove', drag);
+            document.removeEventListener('mouseup', stopDrag);
+            document.removeEventListener('touchmove', drag);
+            document.removeEventListener('touchend', stopDrag);
+        }
+        
+        function createMudSplash(x, y) {
+            const splash = document.createElement('div');
+            splash.className = 'mud-splash';
+            splash.style.left = x + 'px';
+            splash.style.top = y + 'px';
+            document.body.appendChild(splash);
+            
+            // Animate the splash
+            splash.animate([
+                { opacity: 0.8, transform: 'scale(0)' },
+                { opacity: 0, transform: 'scale(1)' }
+            ], {
+                duration: 500,
+                easing: 'ease-out'
+            });
+            
+            // Remove after animation
+            setTimeout(() => {
+                document.body.removeChild(splash);
+            }, 500);
+        }
+
+        // Add tractor sound on click
+        interactiveTractor.addEventListener('click', () => {
+            // In a real implementation, you would play a sound here
+            // For this example, we'll just log to console
+            console.log("Vroom vroom! Tractor sound playing!");
+            
+            // Visual feedback
+            interactiveTractor.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                interactiveTractor.style.transform = 'scale(1)';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
